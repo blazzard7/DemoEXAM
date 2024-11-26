@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Statistics</title>
+</head>
+<body>
+  <h1>Статистика Заказов</h1>
+
+  <div>
+    <h2>Завершенные заказы</h2>
+    <p>Всего завершенных заказов: <%= completedCount %></p>
+  </div>
+
+  <div>
+    <h2>Статистика по типам проблем</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Тип проблемы</th>
+          <th>Количество</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for (const description in problemCounts) { %>
+          <tr>
+            <td><%= description %></td>
+            <td><%= problemCounts[problemType] %></td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

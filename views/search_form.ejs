@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Поиск заявок</title>
+</head>
+<body>
+    <h1>Поиск заявок</h1>
+    <form action="/search" method="GET">
+        <label for="number">Номер заявки:</label>
+        <input type="number" id="number" name="num"><br><br>
+
+        <label>Параметр поиска:</label><br>
+        <label>
+            <input type="radio" id="paramTypeEquip" name="searchParam" value="typeEquip" onclick="updateSearchParam()">
+            Тип оргтехники
+        </label>
+        <label>
+            <input type="radio" id="paramModel" name="searchParam" value="model" onclick="updateSearchParam()">
+            Модель
+        </label>
+        <label>
+            <input type="radio" id="paramDescription" name="searchParam" value="description" onclick="updateSearchParam()">
+            Описание проблемы
+        </label>
+        <label>
+            <input type="radio" id="paramClient" name="searchParam" value="client" onclick="updateSearchParam()">
+            Клиент
+        </label>
+        <label>
+            <input type="radio" id="paramStatus" name="searchParam" value="status" onclick="updateSearchParam()">
+            Статус
+        </label><br><br>
+
+        <label for="value">Значение:</label>
+        <input type="text" id="value" name="param"><br><br>
+
+        <button type="submit">Найти</button>
+    </form>
+    <a href="/orders">К списку заявок</a>
+    <script>
+        function updateSearchParam(){
+            const selectedRadio = document.querySelector('input[name="searchParam"]:checked');
+            if(selectedRadio){
+                document.getElementById('value').setAttribute('name',selectedRadio.value)
+            }else{
+                document.getElementById('value').removeAttribute('name')
+            }
+        }
+    </script>
+</body>
+</html>

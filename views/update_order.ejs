@@ -1,0 +1,68 @@
+<h1>Обновление заявки № <%= order.number %></h1>
+<form id="updateForm" method="POST" action="/orders/<%= order.number %>">
+  <label for="description">Описание проблемы:</label>
+  <textarea id="description" name="description"><%= order.description %></textarea><br>
+  
+  <label for="stage">Этап выполнения:</label>
+  <select id="stage" name="stage">
+    <option value="готова к выдаче" <%= order.stage === 'готова к выдаче' ? 'selected' : '' %>>готова к выдаче</option>
+    <option value="в ожидании запчастей" <%= order.stage === 'в ожидании запчастей' ? 'selected' : '' %>>в ожидании запчастей</option>
+    <option value="в процессе ремонта" <%= order.stage === 'в процессе ремонта' ? 'selected' : '' %>>в процессе ремонта</option>
+  </select><br>
+  
+  <label for="employee">Мастер:</label>
+  <input type="text" id="employee" name="employee" value="<%= order.employee %>"><br>
+  
+  <label for="comment">Комментарий от мастера:</label>
+  <input type="text" id="comment" name="comment" value="<%= order.comment %>"><br>
+  
+  <button type="submit">Обновить заявку</button><br>
+</form>
+
+<a href="/ord/new">Создать новую заявку</a><br>
+<a href="/orders">К списку заявок</a><br>
+
+<script>
+  document.getElementById('updateForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const form = this;
+    const formData = new FormData(form);
+    const data = {};
+    formData.forEach((value, key) => data[key] = value);
+
+    fetch(form.action, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then(response => {
+      if (!response.ok) {
+       
+        return response.json().then(errorData => {
+          throw new Error(errorData.error || response.statusText);
+        });
+      }
+      return response.json();
+    })
+    .then(data => {
+      if (data.success) {
+        if (data.status === 'завершена') {
+          alert(`Заявка №${data.orderNumber} завершена!`);
+        } else if (data.statusChange) {
+          alert(`Статус заявки №${data.orderNumber} обновлен!`);
+        } else {
+          alert(`Статус заявки №${data.orderNumber} обновлен!`);
+        }
+      } else {
+          
+          alert('Ошибка обновления заявки: ' + data.error);
+      }
+    })
+    .catch(error => {
+      console.error('Ошибка:', error);
+      alert(`Произошла ошибка при обновлении заявки: ${error.message}`);
+    });
+  });
+</script>

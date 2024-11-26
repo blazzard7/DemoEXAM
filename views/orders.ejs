@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Orders</title>
+</head>
+<body>
+  <h1>Список заказов</h1>
+  <a href="ord/new">Добавить новую заявку</a>
+  <a href="/search_form">Поиск</a><br>
+  <a hred="/stats">Статистика</a><br>
+  <ul>
+    <% repo.forEach(order => { %>
+      <li>
+        <strong>Номер заявки:</strong> <%= order.number %><br>
+        <strong>Дата добавления:</strong> <%= order.date %><br>
+        <strong>Вид оргтехники:</strong> <%= order.typeEquip %><br>
+        <strong>Модель:</strong> <%= order.model %><br>
+        <strong>Описание проблемы:</strong> <%= order.description %><br>
+        <strong>Клиент:</strong> <%= order.client %><br>
+        <strong>Номер телефона:</strong><%= order.phone %><br>
+        <strong>Статус:</strong> <%= order.status %><br>
+        <strong>Этап выполнения:</strong><%= order.stage %><br>
+        <strong>Мастер:</strong><%= order.employee %><br>
+        <a href="/orders/<%= order.number %>/update">Обновить заявку</a>
+      </li>
+      <hr>
+    <% }); %>
+  </ul>
+  >
+</body>
+</html>

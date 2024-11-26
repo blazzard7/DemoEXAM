@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Результаты поиска</title>
+</head>
+<body>
+  <h1>Результаты поиска</h1>
+
+  <% if (orders.length > 0) { %>
+    <table>
+      <thead>
+        <tr>
+          <th>Номер</th>
+          <th>Дата</th>
+          <th>тип оргтехники</th>
+          <th>Модель</th>
+          <th>Описание проблемы</th>
+          <th>Клиент</th>
+          <th>Статус</th>
+          <th>Сотрудник</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% orders.forEach(order => { %>
+          <tr>
+            <td><%= order.number %></td>
+            <td><%= order.date %></td>
+            <td><%= order.typeEquip %></td>
+            <td><%= order.model %></td>
+            <td><%= order.description %></td>
+            <td><%= order.client %></td>
+            <td><%= order.status %></td>
+            <td><%= order.employee %></td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  <% } else { %>
+    <p>Заявки не найдены.</p>
+  <% } %>
+  <a href="/orders">К списку заявок</a>
+</body>
+</html>
